@@ -5,8 +5,6 @@ import numpy as np
 import pandas as pd
 # from numerize import numerize
 import matplotlib.pyplot as plt
-import plotly.figure_factory as ff
-import plotly.graph_objects as px
 
 st.set_page_config(
     page_title="Live NSE Option Chain!", layout="wide"
