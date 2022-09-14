@@ -9,7 +9,7 @@ import plotly.figure_factory as ff
 import plotly.graph_objects as px
 
 st.set_page_config(
-    page_title="Time series annotations", layout="wide"
+    page_title="Live NSE Option Chain!", layout="wide"
 )
 
 st.subheader("Live NSE Option Chain!")
