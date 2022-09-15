@@ -2,3 +2,5 @@ matplotlib==3.5.1
 pandas==1.2.4
 requests==2.25.1
 streamlit==1.8.1
+numerize==0.12
+streamlit-autorefresh==0.0.1

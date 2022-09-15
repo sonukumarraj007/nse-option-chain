@@ -1,16 +1,19 @@
 import streamlit as st
-import time
 import requests
 import numpy as np
 import pandas as pd
-# from numerize import numerize
+from numerize import numerize
 import matplotlib.pyplot as plt
+from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
-    page_title="Live NSE Option Chain!", layout="wide"
+    page_title="Live NSE Option Chain", layout="wide"
 )
 
-st.subheader("Live NSE Option Chain!")
+st.subheader("Live NSE Option Chain")
+
+# update every 1 mins
+st_autorefresh(interval=1 * 60 * 1000, key="graphdatarefresh")
 
 
 def convert_to_thousand(arr):
@@ -153,7 +156,6 @@ def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, curren
     plt.xticks([r + barWidth for r in range(len(call_oi))], strike_price)
 
     plt.legend()
-    # plt.show()
     st.pyplot(fig)
 
 
@@ -173,7 +175,6 @@ def update():
 
     df = graph_data['trim_oi_data']
     st.table(df)
-    # time.sleep(180)
 
 
 update()
