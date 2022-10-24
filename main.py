@@ -159,6 +159,7 @@ def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, curren
     st.pyplot(fig)
 
 
+@st.cache(suppress_st_warning=True)
 def update():
     live_data = get_nse_live_option_chain()
     current_strike = get_nifty_current_strike(live_data['current_value'])
@@ -177,4 +178,7 @@ def update():
     st.table(df)
 
 
-update()
+try:
+    update()
+except:
+    st.write('No Record Found')
