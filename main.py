@@ -6,7 +6,6 @@ from numerize import numerize
 import matplotlib.pyplot as plt
 from streamlit_autorefresh import st_autorefresh
 import time
-import threading
 
 st.set_page_config(
     page_title="Live NSE Option Chain", layout="wide"
@@ -69,7 +68,6 @@ def get_nse_live_option_chain():
         'current_value': int(underlying_value),
         'current_time': current_time
     }
-    threading.Timer(60, get_nse_live_option_chain).start()
     return res
 
 
@@ -157,7 +155,7 @@ def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, curren
     plt.ylabel(ylabel, fontweight='bold', fontsize=15)
     plt.xticks([r + barWidth for r in range(len(call_oi))], strike_price)
 
-    plt.legend()
+    # plt.legend()
     st.pyplot(fig)
 
 
