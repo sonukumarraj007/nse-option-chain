@@ -5,6 +5,7 @@ import pandas as pd
 from numerize import numerize
 import matplotlib.pyplot as plt
 from streamlit_autorefresh import st_autorefresh
+import time
 
 st.set_page_config(
     page_title="Live NSE Option Chain", layout="wide"
@@ -12,8 +13,8 @@ st.set_page_config(
 
 st.subheader("Live NSE Option Chain")
 
-# update every 1 mins
-st_autorefresh(interval=1 * 60 * 1000, key="graphdatarefresh")
+# # update every 1 mins
+# st_autorefresh(interval=1 * 60 * 1000, key="graphdatarefresh")
 
 
 def convert_to_thousand(arr):
@@ -161,8 +162,8 @@ def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, curren
 
 @st.cache(suppress_st_warning=True)
 def update():
-    live_data = get_nse_live_option_chain()
-    if live_data:
+    while True:
+        live_data = get_nse_live_option_chain()
         current_strike = get_nifty_current_strike(live_data['current_value'])
         option_chain = build_option_chain_dataframe(
             live_data['raw_option_chain_data'])
@@ -178,6 +179,7 @@ def update():
 
         df = graph_data['trim_oi_data']
         st.table(df)
+        time.sleep(60)
 
 
 try:
