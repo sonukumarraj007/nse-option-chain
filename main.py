@@ -162,20 +162,22 @@ def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, curren
 @st.cache(suppress_st_warning=True)
 def update():
     live_data = get_nse_live_option_chain()
-    current_strike = get_nifty_current_strike(live_data['current_value'])
-    option_chain = build_option_chain_dataframe(
-        live_data['raw_option_chain_data'])
+    if live_data:
+        current_strike = get_nifty_current_strike(live_data['current_value'])
+        option_chain = build_option_chain_dataframe(
+            live_data['raw_option_chain_data'])
 
-    graph_data = build_option_chain_graph_data(current_strike, option_chain)
+        graph_data = build_option_chain_graph_data(
+            current_strike, option_chain)
 
-    plot_option_chain_graph(graph_data['call_change_oi'], graph_data['put_change_oi'],
-                            graph_data['strike_price'], live_data['current_value'], live_data['current_time'])
+        plot_option_chain_graph(graph_data['call_change_oi'], graph_data['put_change_oi'],
+                                graph_data['strike_price'], live_data['current_value'], live_data['current_time'])
 
-    plot_option_chain_graph(graph_data['call_oi'], graph_data['put_oi'],
-                            graph_data['strike_price'], live_data['current_value'], live_data['current_time'])
+        plot_option_chain_graph(graph_data['call_oi'], graph_data['put_oi'],
+                                graph_data['strike_price'], live_data['current_value'], live_data['current_time'])
 
-    df = graph_data['trim_oi_data']
-    st.table(df)
+        df = graph_data['trim_oi_data']
+        st.table(df)
 
 
 try:
