@@ -134,7 +134,7 @@ def build_option_chain_graph_data(current_strike, option_chain):
     return res
 
 
-def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, current_time):
+def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, current_time, xlabel, ylabel):
     barWidth = 0.25
     fig = plt.figure(figsize=(16, 7))
 
@@ -153,9 +153,8 @@ def plot_option_chain_graph(call_oi, put_oi, strike_price, current_price, curren
     plt.bar(br2, put_oi,  color='g', width=barWidth,
             edgecolor='grey', label='Put OI')
 
-    # Adding Xticks
-    plt.xlabel('Strike',  fontweight='bold', fontsize=15)
-    plt.ylabel('Call/Put PI', fontweight='bold', fontsize=15)
+    plt.xlabel(xlabel, fontweight='bold', fontsize=15)
+    plt.ylabel(ylabel, fontweight='bold', fontsize=15)
     plt.xticks([r + barWidth for r in range(len(call_oi))], strike_price)
 
     plt.legend()
@@ -173,10 +172,10 @@ def update():
         current_strike, option_chain)
 
     plot_option_chain_graph(graph_data['call_change_oi'], graph_data['put_change_oi'],
-                            graph_data['strike_price'], live_data['current_value'], live_data['current_time'])
+                            graph_data['strike_price'], live_data['current_value'], live_data['current_time'], 'Strike', 'Call/Put OI')
 
     plot_option_chain_graph(graph_data['call_oi'], graph_data['put_oi'],
-                            graph_data['strike_price'], live_data['current_value'], live_data['current_time'])
+                            graph_data['strike_price'], live_data['current_value'], live_data['current_time'], 'Strike', 'Call/Put Change % OI')
 
     df = graph_data['trim_oi_data']
     st.table(df)
